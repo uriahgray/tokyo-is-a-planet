@@ -11,6 +11,10 @@
       <!-- Display Content -->
       <Content :content="studio.content" />
     </div>
+        <div v-else>
+      <!-- Message to display when studio data is not available -->
+      <p>Loading studio data or not available...</p>
+    </div>
   </div>
 </template>
 
@@ -34,9 +38,9 @@ export default defineComponent({
     window.scrollTo(0, 0);
   },
   apollo: {
-    // Apollo integration
-    studio: {
-      query: gql`
+  studio: {
+    query() {
+      return gql`
         query GetSiteOption {
           siteOption(where: {id: "clotg8w8sse6x0b2ooiw1g2sh"}) {
             studio {
@@ -69,19 +73,14 @@ export default defineComponent({
             }
           }
         }     
-      `,
-      result({ data }) {
-        if (data && data.siteOption && data.siteOption.studio) {
-          this.studio = data.siteOption.studio;
-        } else {
-          console.error('Studio data missing in the result');
-        }
-      },
-      error(error) {
-        console.error('Error fetching studio data:', error);
-      },
-    }
+      `
+    },
+    update: data => data.siteOption?.studio,
+    error(error) {
+      console.error('Error fetching studio data:', error);
+    },
   }
+}
 });
 </script>
 

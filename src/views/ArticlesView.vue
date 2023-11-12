@@ -3,24 +3,13 @@
     <div v-if="studio">
       <div class="title font-bold">{{ studio.title }}</div>
       <div class="summary">{{ studio.summary }}</div>
-      <!-- Display Content -->
-      <Content :content="studio.content" />      
       <!-- Display Broadcasts -->
       <div v-for="broadcast in studio.broadcasts" :key="broadcast.title" class="broadcast">
         <div class="broadcast-title">{{ broadcast.title }}</div>
-        <router-link :to="`/broadcast/${broadcast.slug}`" class="broadcast-slug">
-          {{ broadcast.slug }}
-        </router-link>
         <div class="broadcast-length">{{ broadcast.length }}</div>
       </div>
-      <!-- Display Articles -->
-      <div v-for="article in studio.articles" :key="article.title" class="article">
-        <div class="article-title">{{ article.title }}</div>
-        <router-link :to="`/article/${article.slug}`" class="article-slug">
-          {{ article.slug }}
-        </router-link>
-        <div class="broadcast-summary">{{ article.summary }}</div>
-      </div>      
+      <!-- Display Content -->
+      <Content :content="studio.content" />
     </div>
   </div>
 </template>
@@ -32,7 +21,7 @@ import gql from "graphql-tag";
 import Content from "../components/Content.vue";
 
 export default defineComponent({
-  name: 'Home',
+  name: 'ArticlesView',
   components: {
     Content
   },
@@ -57,13 +46,7 @@ export default defineComponent({
               broadcasts {
                 title
                 length
-                slug
               }
-              articles {
-                title
-                summary
-                slug
-              }              
               content {
                 ... on Header {
                   header

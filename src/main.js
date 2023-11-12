@@ -28,7 +28,7 @@ const apolloProvider = createApolloProvider({
 // Create the Vue 3 app
 const app = createApp(App);
 
-app.use(router);
 app.use(apolloProvider); // Use the Apollo provider
+app.use(router);
 
 app.mount('#app');
