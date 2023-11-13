@@ -59,7 +59,7 @@ export default defineComponent({
                 name
                 media {
                   mimeType
-                  url(transformation: {image: {resize: {width: 1380}}})
+                  url
                 }
               }
             }

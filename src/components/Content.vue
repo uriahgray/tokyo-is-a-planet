@@ -24,8 +24,10 @@
              :class="{'w-full mb-4 last:mb-0': !contentItem.small, 'w-full md:w-1/2 px-0 md:px-4 mb-4 md:mb-0': contentItem.small}">
 
           <!-- Audio media -->
-          <audio v-if="mediaItem.mimeType === 'audio'" :src="mediaItem.url" controls
+          <div v-if="mediaItem.mimeType.includes('audio')">
+                <audio :src="mediaItem.url" controls
                 class="max-w-full max-h-screen"></audio>
+          </div>
           
           <!-- Video media -->
           <video v-else-if="mediaItem.mimeType === 'video'" :src="mediaItem.url" controls

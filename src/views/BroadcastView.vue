@@ -12,6 +12,10 @@
 
       <Content :content="broadcast.content" />
 
+      <div v-if="broadcast.audio">
+        <AudioPlayer :file="broadcast.audio.url" :title="broadcast.title" />
+      </div>
+
     </div>
     <div v-else>
       <p>Loading broadcast data or not available...</p>
@@ -23,11 +27,13 @@
 import { defineComponent } from 'vue';
 import gql from "graphql-tag";
 import Content from "../components/Content.vue";
+import AudioPlayer from "../components/AudioPlayer.vue";
 
 export default defineComponent({
   name: 'BroadcastView',
   components: {
-    Content
+    Content,
+    AudioPlayer
   },
   data() {
     return {
@@ -49,6 +55,9 @@ export default defineComponent({
             people {
               firstName
               lastName
+            }
+            audio {
+              url
             }            
             content {
               ... on Text {
