@@ -1,0 +1,17 @@
+@font-face {
+    font-family:'monument-bold';
+    src: url('./monument-grotesk-bold.woff');
+  }
+
+  @font-face {
+    font-family:'StaunchTitlingCond-Bold';
+    src: url('./StaunchTitlingCond-Bold.woff');
+  }  
+  
+html {
+    font-family: 'monument-bold';
+}
+
+.ff-cond {
+    font-family: 'StaunchTitlingCond-Bold';
+}

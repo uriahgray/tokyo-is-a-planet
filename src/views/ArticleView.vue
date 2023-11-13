@@ -1,7 +1,7 @@
 <template>
-  <div class="article-view">
+  <div class="p-4 article-view text-riso-blue">
     <div v-if="article">
-      <div class="title font-bold">{{ article.title }}</div>
+      <!-- <div class="title font-bold">{{ article.title }}</div> -->
       <Content :content="article.content" />     
     </div>
     <div v-else>
@@ -41,12 +41,18 @@ export default defineComponent({
             content {
               ... on Header {
                 header
+                gold
               }
+                ... on Dot {
+                  id
+                  gold
+                }              
               ... on Text {
                 text {
                   html
                 }
                 small
+                gold
               }                
               ... on Media {
                 id

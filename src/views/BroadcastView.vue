@@ -1,12 +1,17 @@
 <template>
-  <div class="broadcast-view">
+  <div class="broadcast-view p-4 text-riso-blue">
     <div v-if="broadcast">
-      <div class="title font-bold">{{ broadcast.title }}</div>
-      <div class="content">
-        <div v-for="(contentItem, index) in broadcast.content" :key="index">
-          <div v-html="contentItem.text.html"></div>
-        </div>
+
+      <img class="w-full rounded-2xl mb-2" v-if="broadcast.heroImage" :src="broadcast.heroImage.url" alt="" />
+
+      <div class="text-base md:text-lg">{{ broadcast.title }} {{ broadcast.length }}</div>
+      <div v-for="(person, index) in broadcast.people" :key="person.id" class="text-xs md:text-sm">
+        {{ person.firstName }} {{ person.lastName }}<span v-if="index < broadcast.people.length - 1">,</span>
       </div>
+
+
+      <Content :content="broadcast.content" />
+
     </div>
     <div v-else>
       <p>Loading broadcast data or not available...</p>
@@ -17,9 +22,13 @@
 <script>
 import { defineComponent } from 'vue';
 import gql from "graphql-tag";
+import Content from "../components/Content.vue";
 
 export default defineComponent({
   name: 'BroadcastView',
+  components: {
+    Content
+  },
   data() {
     return {
       broadcast: null,
@@ -33,11 +42,20 @@ export default defineComponent({
           broadcast(where: {slug: $slug}) {
             slug
             title
+            length
+            heroImage {
+              url(transformation: {image: {resize: {width: 1400}}})
+            }            
+            people {
+              firstName
+              lastName
+            }            
             content {
               ... on Text {
                 text {
                   html
                 }
+                small
               }
             }
           }

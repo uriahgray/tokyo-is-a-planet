@@ -11,6 +11,12 @@ module.exports = {
       ...theme('colors'),
       auto: 'auto',
     }),
+    extend: {
+      colors: {
+        'riso-blue':'#0b3e78',
+        'riso-gold':'#704817',
+      }
+    },
     animation: {
       none: 'none',
       spin: 'spin 1s linear infinite',
@@ -333,12 +339,19 @@ module.exports = {
       ],
     },
     fontSize: {
-      xs: ['0.75rem', { lineHeight: '1rem' }],
-      sm: ['0.875rem', { lineHeight: '1.25rem' }],
-      base: ['1rem', { lineHeight: '1.5rem' }],
-      lg: ['1.125rem', { lineHeight: '1.75rem' }],
-      xl: ['1.25rem', { lineHeight: '1.75rem' }],
-      '2xl': ['1.5rem', { lineHeight: '2rem' }],
+      // caption=small desktop, xtra small mobile
+      xs: ['14px', { lineHeight: '16px' }],
+      sm: ['14px', { lineHeight: '16px' }],
+
+      // body=lg desktop, base mobile
+      base: ['20px', { lineHeight: '22px' }],
+      lg: ['2.3841vw', { lineHeight: '2.516vw' }],
+
+      // header=2xl desktop, xl mobile
+      xl: ['24.41vw', { lineHeight: '19.24vw' }],
+      '2xl': ['24.41vw', { lineHeight: '19.24vw' }],
+
+      // not used
       '3xl': ['1.875rem', { lineHeight: '2.25rem' }],
       '4xl': ['2.25rem', { lineHeight: '2.5rem' }],
       '5xl': ['3rem', { lineHeight: '1' }],

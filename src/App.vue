@@ -1,28 +1,36 @@
 <template>
 <header>
-    <div v-if="studio" class="wrapper w-1/4 bg-blue-600 mix-blend-multiply fixed top-16 text-white p-3 -translate-x-1/2 left-1/2">
+    <div v-if="studio" class="wrapper w-[85%] md:w-1/3 bg-violet-600 mix-blend-multiply fixed top-16 text-white p-3 -translate-x-1/2 left-1/2">
     <div class="logo flex justify-between">
-      <div>{{studio.title}}</div>
-      <div class="menu cursor-pointer" @click="toggleMenu">Menu</div>
+      <div class="text-base md:text-lg">
+        <router-link :to="`/`">
+          {{studio.title}}
+        </router-link>
+      </div>
+      <div class="menu cursor-pointer text-base md:text-lg" @click="toggleMenu">Menu</div>
     </div>
     <div class="audio-player">audio-here</div>
-    <div class="menu-wrapper" v-if="isMenuOpen">
-      <div class="broadcasts-title">● Broadcasts</div>
+    <div class="menu-wrapper overflow-auto max-h-[60vh]" v-if="isMenuOpen">
+      <div class="text-base md:text-lg border-t border-white pt-1">● Broadcasts</div>
       <div v-for="broadcast in studio.broadcasts" :key="broadcast.title" class="broadcast">
-        <router-link :to="`/broadcast/${broadcast.slug}`" class="broadcast-slug">
-          <img v-if="broadcast.thumbnail" :src="broadcast.thumbnail.url" alt="" />
-          <div class="broadcast-length">{{ broadcast.length }}</div>
-          <div class="broadcast-title">{{ broadcast.title }}</div>
-          <div v-for="(person, index) in broadcast.people" :key="person.id" class="person">
-            {{ person.firstName }} {{ person.lastName }}<span v-if="index < broadcast.people.length - 1">,</span>
+        <router-link :to="`/broadcast/${broadcast.slug}`" class="flex mb-4">
+          <div class="w-16">
+            <img class="rounded-xl" v-if="broadcast.thumbnail" :src="broadcast.thumbnail.url" alt="" />
+          </div>
+          <div class="pl-2 flex-grow-1">
+            <div class="text-base md:text-lg">{{ broadcast.title }}</div>
+            <div class="text-xs md:text-sm inline-block">{{ broadcast.length }} &nbsp;</div>
+            <div v-for="(person, index) in broadcast.people" :key="person.id" class="person inline-block">
+              {{ person.firstName }} {{ person.lastName }}<span v-if="index < broadcast.people.length - 1">,</span>
+            </div>
           </div>
         </router-link>
       </div>
       <router-link :to="`/articles/`" class="articles-slug">
-      <div class="broadcasts-title">Articles</div>
+      <div class="text-base md:text-lg border-t border-white pt-1">● Articles</div>
       </router-link>
-      <div class="imprint-title">Imprint</div>
-      {{studio.summary}}
+      <div class="text-base md:text-lg border-t border-white pt-1">About</div>
+      <div class="text-xs md:text-sm">{{studio.summary}}</div>
     </div>
     </div>  
 </header>
