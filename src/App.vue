@@ -1,6 +1,6 @@
 <template>
 <header>
-    <div v-if="studio" class="wrapper w-[85%] md:w-1/3 bg-amber-700 mix-blend-multiply fixed top-16 text-white p-3 -translate-x-1/2 left-1/2 z-50 rounded-xl">
+    <div v-if="studio" class="wrapper w-[85%] md:w-1/3 bg-violet-600 mix-blend-multiply fixed top-16 text-white p-3 -translate-x-1/2 left-1/2 z-50 rounded-xl">
     <div class="logo flex justify-between items-center">
       <div class="text-base md:text-lg">
         <router-link :to="`/`">
@@ -45,12 +45,12 @@
       </div>  
     </div>
     <div class="menu-wrapper overflow-auto max-h-[70vh]" v-if="isMenuOpen">
-      <div class="text-base md:text-lg pt-2">● Broadcasts</div>
+      <div class="text-base md:text-lg pt-2 pb-2">● Broadcasts</div>
       <div v-for="broadcast in studio.broadcasts" :key="broadcast.title" class="broadcast">
-        <router-link :to="`/broadcast/${broadcast.slug}`" class="flex mb-4">
+        <router-link :to="`/broadcast/${broadcast.slug}`" class="flex mb-4 items-top">
 
 
-          <div class="w-16 mr-4">
+          <div class="w-16 mr-1">
             <img class="rounded-xl grayscale contrast-150" v-if="broadcast.thumbnail" :src="broadcast.thumbnail.url" alt="" />
           </div>
 
@@ -68,7 +68,7 @@
       <div class="text-base md:text-lg">Articles</div>
       </router-link>
       <div class="text-base md:text-lg">About</div>
-      <div class="text-xs md:text-sm">{{studio.summary}}</div>
+      <div class="text-xs md:text-sm"><div v-html="studio.credits.html"></div></div>
     </div>
     </div>
 
@@ -179,6 +179,9 @@ export default defineComponent({
                 id
                 summary
                 title
+                credits {
+                  html
+                }
                 singleBroadcast {
                   url
                 }

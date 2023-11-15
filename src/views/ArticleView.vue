@@ -1,6 +1,6 @@
 <template>
   <div class="p-4 article-view text-riso-blue">
-    <div v-if="article.summary" class="text-xs md:text-sm mb-12">
+    <div v-if="article.summary" class="text-xs md:text-sm mb-8 mt-64 md:mt-0">
       {{article.summary}}
     </div>
     <div v-if="article">

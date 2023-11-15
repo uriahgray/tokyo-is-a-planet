@@ -1,7 +1,7 @@
 <template>
   <div class="home p-4 text-riso-blue">
     <div v-if="studio">
-      <div class="text-xs md:text-sm w-full md:w-1/2 mb-8 md:mb-16">{{ studio.summary }}</div>
+      <div class="text-xs md:text-sm w-full md:w-1/2 mt-64 md:mt-0 mb-8 md:mb-16">{{ studio.summary }}</div>
       <!-- Display Content -->
       <Content :content="studio.content" />   
       <!-- Display Broadcasts -->

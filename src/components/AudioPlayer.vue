@@ -2,12 +2,12 @@
   <div id="app">
     <div class="player">
       <div class="state" :class="[{ published: isPublished }]"></div>
-      <div class="audio-player bg-purple-700">
+      <div class="audio-player bg-violet-600">
         <div :class="hideTimeline ? 'inactive' : 'active'" class="timeline">
           <div class="progress" :style="{ width: progress + '%' }"></div>
         </div>
         <div class="controls">
-          <div class="play-container text-violet-600">
+          <div class="play-container bg-violet-600">
           <span class="bi text-lg" @click="playPause">
             <span v-if="isPaused" class="play">
               <svg width="30" height="36" viewBox="0 0 30 36" fill="none" xmlns="http://www.w3.org/2000/svg">

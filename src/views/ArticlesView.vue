@@ -1,6 +1,6 @@
 <template>
   <div class="home p-4 text-riso-blue">
-    <div class="text-xs md:text-sm w-full md:w-1/2 mb-8 md:mb-16">{{ studio.summary }}</div>
+    <div class="text-xs md:text-sm w-full md:w-1/2 mb-8 mt-64 md:mt-0 md:mb-16">{{ studio.summary }}</div>
     <div v-if="studio">
       <!-- Display Articles -->
       <div v-if="studio.articles" class="grid gap-x-8 gap-y-4 grid-cols-2 md:grid-cols-5">
