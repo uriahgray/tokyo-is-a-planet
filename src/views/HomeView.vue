@@ -13,7 +13,7 @@
              class="text-center w-full md:w-1/2 px-0 md:px-4 mb-4">
           <router-link :to="`/broadcast/${broadcast.slug}`">
           <img class="w-full rounded-2xl mb-2" v-if="broadcast.thumbnail" :src="broadcast.thumbnail.url" alt="" />
-          <div class="text-base md:text-lg">{{ broadcast.title }} {{ broadcast.length }}</div>
+          <div class="text-ml md:text-lg">{{ broadcast.title }} {{ broadcast.length }}</div>
           <div v-for="(person, index) in broadcast.people" :key="person.id" class="text-xs md:text-sm">
             {{ person.firstName }} {{ person.lastName }}<span v-if="index < broadcast.people.length - 1">,</span>
           </div>          

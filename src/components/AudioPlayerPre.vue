@@ -2,28 +2,21 @@
   <div id="app">
     <div class="player">
       <div class="state" :class="[{ published: isPublished }]"></div>
-      <div class="audio-player bg-purple-700">
-        <div :class="hideTimeline ? 'inactive' : 'active'" class="timeline">
+      <div class="audio-player">
+        <div class="timeline">
           <div class="progress" :style="{ width: progress + '%' }"></div>
         </div>
         <div class="controls">
-          <div class="play-container text-violet-600">
-          <span class="bi text-lg" @click="playPause">
-            <span v-if="isPaused" class="play">
-              <svg width="30" height="36" viewBox="0 0 30 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M30 18L-1.63133e-06 35.3205L-1.17124e-07 0.67949L30 18Z" fill="#D9D9D9"/>
-              </svg>
-            </span>
-            <span v-else class="pause">
-              <svg width="25" height="35" viewBox="0 0 25 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect width="10" height="35" fill="#D9D9D9"/>
-                <rect x="15" width="10" height="35" fill="#D9D9D9"/>
-              </svg>
-            </span>
-          </span>
+          <div class="play-container">
+            <i
+              class="bi"
+              :class="isPaused ? 'bi-play-fill' : 'bi-pause-fill'"
+              @click="playPause"
+            >
+            Play
+            </i>
           </div>
-          <div :class="hideTimeline ? 'text-transparent' : 'text-white'" class="time">
-            <div class="title">{{title}} </div>
+          <div class="time">
             <div class="current">{{ current }} / {{ length }}</div>
           </div>
         </div>
@@ -35,24 +28,12 @@
 <script>
 export default {
   name: 'AudioPlayer',
-  props: {
+props: {
     file: {
       type: String,
       default: null
-    },
-    title: {
-      type: String,
-      default: null
-    },    
-    hideTimeline: {
-      type: Boolean,
-      default: false
-    },     
-    autoPlay: {
-      type: Boolean,
-      default: false
-    }    
-  }, 
+    }
+  },  
   data() {
     return {
       isPublished: true,
@@ -61,18 +42,11 @@ export default {
       audio: null,
       progress: 0,
       current: "0:00",
-      length: ""
+      length: "",
+      volume: 100,
     };
   },
-  watch: {
-    file(newFile) {
-      this.loadAudio(newFile);
-    }
-  },  
   mounted() {
-    if (this.file) {
-      this.loadAudio(this.file);
-    }
     const audioPlayer = document.querySelector(".audio-player");
 
     const timeline = audioPlayer.querySelector(".timeline");
@@ -83,6 +57,18 @@ export default {
         const timeToSeek =
           (e.offsetX / parseInt(timelineWidth)) * this.audio.duration;
         this.audio.currentTime = timeToSeek;
+      },
+      false
+    );
+
+    const volumeSlider = audioPlayer.querySelector(".controls .volume-slider");
+    volumeSlider.addEventListener(
+      "click",
+      (e) => {
+        const sliderWidth = window.getComputedStyle(volumeSlider).width;
+        const newVolume = e.offsetX / parseInt(sliderWidth);
+        this.audio.volume = newVolume;
+        this.volume = newVolume * 100;
       },
       false
     );
@@ -102,26 +88,15 @@ export default {
     }, 500);
   },
   methods: {
-    loadAudio(fileUrl) {
-      if (this.audio) {
-        this.audio.pause();
-      }
-      this.audio = new Audio(fileUrl);
-      this.audio.addEventListener('loadeddata', () => {
-        this.length = this.getTimeCodeFromNum(this.audio.duration);
-        this.audio.volume = 1;
-        
-        if (this.autoPlay) {
-          this.playPause();
-        }
-      });
-      // Rest of the code for updating progress...
+    volMute() {
+      this.audio.muted = !this.audio.muted;
+      this.isMuted = !this.isMuted;
     },
     playPause() {
-      if (this.audio && this.audio.paused) {
+      if (this.audio.paused) {
         this.isPaused = false;
         this.audio.play();
-      } else if (this.audio) {
+      } else {
         this.isPaused = true;
         this.audio.pause();
       }
@@ -157,35 +132,25 @@ export default {
 }
 .audio-player {
   height: 50px;
-  width: 100%;
+  width: 350px;
+  background: #fff;
+  box-shadow: 0 0 20px 0 #000a;
+  font-family: arial;
+  color: #444;
+  font-size: 0.75em;
   overflow: hidden;
   display: grid;
   grid-template-rows: 6px auto;
 }
 .audio-player .timeline {
+  background: white;
   width: 100%;
   position: relative;
   cursor: pointer;
+  box-shadow: 0 2px 10px 0 #0008;
 }
-
-.audio-player .timeline.inactive {
-  background: transparent;
-}
-
-.audio-player .timeline.active {
-  background: white;
-}
-
-.audio-player .timeline.inactive .progress {
-  background: transparent;
-}
-
-.audio-player .timeline.active .progress {
-  background: black;
-}
-
 .audio-player .timeline .progress {
-  background: black;
+  background: coral;
   width: 0%;
   height: 100%;
   transition: 0.25s;
@@ -194,17 +159,31 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-left: 20px;
-  padding-right: 5px;
+  padding: 0 20px;
 }
 .audio-player .controls .bi {
-  /* font-size: 1.5rem; */
+  font-size: 1.5rem;
 }
 .audio-player .controls .time {
   display: flex;
 }
 .audio-player .controls .time > * {
   padding: 2px;
+}
+.audio-player .controls .volume-button {
+  height: 26px;
+  display: flex;
+  align-items: center;
+}
+.audio-player .controls .volume-button .volume {
+  transform: scale(0.7);
+}
+.audio-player .controls .volume-slider {
+  width: 100px;
+  height: 15px;
+  background: white;
+  box-shadow: 0 0 20px #000a;
+  transition: 0.25s;
 }
 .audio-player .controls .volume-slider .volume-percentage {
   background: coral;

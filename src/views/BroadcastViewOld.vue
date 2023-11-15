@@ -2,25 +2,15 @@
   <div class="broadcast-view p-4 text-riso-blue">
     <div v-if="broadcast">
 
-      
+      <img class="w-full rounded-2xl mb-2" v-if="broadcast.thumbnail" :src="broadcast.thumbnail.url" alt="" />
 
-      <div class="hidden md:block relative">
-         <img class="w-full rounded-2xl mb-2" v-if="broadcast.heroImage" :src="broadcast.heroImage.url" alt="" />
-        <div class="absolute inset-0 mx-auto my-auto z-10  w-[100px] h-[100px] rounded-xl">
-          <button @click="playAudio(broadcast.audio.url, broadcast.title, false)">
-              <svg :class="{ 'fill-violet-600 translate-x-[25px] translate-y-[15px]': true, blink: !isClicked }">
-              <path d="M55 32.5L0.249997 64.1099L0.25 0.890069L55 32.5Z"/>
-              </svg>
-          </button>
-        </div>
-      </div>
+      <!-- <div v-if="broadcast.audio">
+        <AudioPlayer :file="broadcast.audio.url" :title="broadcast.title" />
+      </div> -->
 
-      <div class="block md:hidden">
-        <img class="w-full rounded-2xl mb-4" v-if="broadcast.thumbnail" :src="broadcast.thumbnail.url" alt="" />
-        <AudioPlayer :file="broadcast.audio.url" :title="broadcast.title" :autoPlay="false" />
-      </div>
+      <button @click="playAudio(broadcast.audio.url)">Play</button>
 
-      <div class="text-ml md:text-lg">{{ broadcast.title }} <span class="hidden md:inline">{{ broadcast.length }}</span></div>
+      <div class="text-base md:text-lg">{{ broadcast.title }} {{ broadcast.length }}</div>
       <div v-for="(person, index) in broadcast.people" :key="person.id" class="text-xs md:text-sm">
         {{ person.firstName }} {{ person.lastName }}<span v-if="index < broadcast.people.length - 1">,</span>
       </div>
@@ -30,7 +20,7 @@
 
     </div>
     <div v-else>
-      
+      <p>Loading broadcast data or not available...</p>
     </div>
   </div>
 </template>
@@ -50,20 +40,20 @@ export default defineComponent({
   data() {
     return {
       broadcast: null,
-      slug: this.$route.params.slug,
-      isClicked: false,
+      slug: this.$route.params.slug
     }
   },
   methods: {
-  async playAudio(audioUrl, title, hideTimeline) {
+  async playAudio(audioUrl) {
+    // Clear the current audio URL first
     await this.$store.dispatch('clearAudio');
-    this.isClicked = true;
-    
+
+    // Introduce a slight delay to ensure the audio is cleared before playing the new one
     setTimeout(() => {
-      this.$store.dispatch('playAudio', { url: audioUrl, title, hideTimeline, autoplay: true });
-    }, 100);
+      this.$store.dispatch('playAudio', { url: audioUrl, showSeekbar: true });
+    }, 100); // Slight delay, e.g., 100 milliseconds
   }
-  },   
+  },  
   apollo: {
     broadcast: {
       query: gql`
@@ -72,11 +62,8 @@ export default defineComponent({
             slug
             title
             length
-            heroImage {
-              url(transformation: {image: {resize: {width: 1380}}})
-            }            
             thumbnail {
-              url(transformation: {image: {resize: {width: 700}}})
+              url(transformation: {image: {resize: {width: 1400}}})
             }            
             people {
               firstName
@@ -123,23 +110,4 @@ export default defineComponent({
   }
 });
 </script>
-
-<style>
-
-.blink {
-  animation: blink-animation 2s steps(5, start) infinite;
-  -webkit-animation: blink-animation 2s steps(5, start) infinite;
-}
-@keyframes blink-animation {
-  to {
-    visibility: hidden;
-  }
-}
-@-webkit-keyframes blink-animation {
-  to {
-    visibility: hidden;
-  }
-}
-
-</style>
 

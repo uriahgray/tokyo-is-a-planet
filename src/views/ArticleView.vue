@@ -1,5 +1,8 @@
 <template>
   <div class="p-4 article-view text-riso-blue">
+    <div v-if="article.summary" class="text-xs md:text-sm mb-12">
+      {{article.summary}}
+    </div>
     <div v-if="article">
       <!-- <div class="title font-bold">{{ article.title }}</div> -->
       <Content :content="article.content" />     
@@ -38,6 +41,7 @@ export default defineComponent({
           article(where: {slug: $slug}) {
             slug
             title
+            summary
             content {
               ... on Header {
                 header

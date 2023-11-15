@@ -9,7 +9,7 @@
       </div>
       <!-- Text -->
       <div v-else-if="contentItem.__typename === 'Text'" 
-           :class="['text-base md:text-lg', 'w-full', 'md:w-2/3', 'font-bold', {'text-riso-gold': contentItem.gold}, {'text-xs md:text-sm w-full md:w-1/2': contentItem.small}]">
+           :class="['text-base md:text-lg', 'w-full', 'md:w-2/3',  {'text-riso-gold': contentItem.gold}, {'text-xs md:text-sm w-full md:w-1/2': contentItem.small}]">
         <div v-html="contentItem.text.html"></div>
       </div>
       <!-- Header -->

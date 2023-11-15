@@ -351,8 +351,9 @@ module.exports = {
       xl: ['24.41vw', { lineHeight: '19.24vw' }],
       '2xl': ['24.41vw', { lineHeight: '19.24vw' }],
 
-      // not used
-      '3xl': ['1.875rem', { lineHeight: '2.25rem' }],
+      // mobile large
+      'ml': ['42px', { lineHeight: '46px' }],
+
       '4xl': ['2.25rem', { lineHeight: '2.5rem' }],
       '5xl': ['3rem', { lineHeight: '1' }],
       '6xl': ['3.75rem', { lineHeight: '1' }],
