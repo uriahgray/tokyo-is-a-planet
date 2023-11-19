@@ -75,14 +75,14 @@
   <div v-if="studio" :class="hideThumbnails">
     <div v-for="(article, index) in articlesWithPosition" :key="article.slug" class="article-thumbnail fixed hover:z-[250]" :class="{'show': article.show}" :style="article.position">
       
-        <div class="w-[100px] md:w-[200px]">
+        <div class="w-[70px] md:w-[150px]">
           <div class="close cursor-pointer mb-2" @click="removeArticle(index)">
             <svg width="27" height="27" viewBox="0 0 27 27" class="fill-riso-gold" xmlns="http://www.w3.org/2000/svg">
               <circle cx="13.5" cy="13.5" r="13.5"/>
               <path d="M19 9.10786L17.8921 8L13.5 12.3921L9.10786 8L8 9.10786L12.3921 13.5L8 17.8921L9.10786 19L13.5 14.6079L17.8921 19L19 17.8921L14.6079 13.5L19 9.10786Z" fill="#fff"/>
             </svg>
           </div>
-          <router-link :to="`/article/${article.slug}`">
+          <router-link :to="`/report/${article.slug}`">
             <img class="" v-if="article.thumbnail" :src="article.thumbnail.url" alt="" />
           </router-link>
         </div>
@@ -138,7 +138,7 @@ export default defineComponent({
           setTimeout(() => {
             // Directly set the show property
             article.show = true;
-          }, 4000 * (index + 1));
+          }, 5000 * (index + 1));
         });
       }
     },
@@ -155,7 +155,7 @@ export default defineComponent({
   },
   computed: {
     hideThumbnails() {
-      return this.$route.path === '/articles/' ? 'hidden' : '';
+      return this.$route.path === '/reports/' ? 'hidden' : '';
     },   
     audioUrl() {
       return this.$store.state.audioUrl;
@@ -255,12 +255,56 @@ export default defineComponent({
 
 <style>
 
+.article-thumbnail.show:nth-child(1),
+.article-thumbnail.show:nth-child(2),
+.article-thumbnail.show:nth-child(3),
+.article-thumbnail.show:nth-child(4),
+.article-thumbnail.show:nth-child(5),
+.article-thumbnail.show:nth-child(6)  
+{
+  display: block;
+}
+
 .article-thumbnail {
   display: none;
 }
 
 .article-thumbnail.show {
-  display: block;
+  display: none;
+}
+
+@media (max-width: 800px) {
+  .article-thumbnail {
+    top:initial !important;
+    left:initial !important;
+    right:20px !important;
+  }
+
+  .article-thumbnail.show:nth-child(1) {
+    bottom:20px !important;
+  }
+
+  .article-thumbnail.show:nth-child(2) {
+    bottom:160px !important;
+  }
+
+  .article-thumbnail.show:nth-child(3) {
+    bottom:300px !important;
+  }
+
+  .article-thumbnail.show:nth-child(4) {
+    bottom:460px !important;
+  }
+  
+  .article-thumbnail.show:nth-child(4),
+  .article-thumbnail.show:nth-child(5),
+  .article-thumbnail.show:nth-child(6) {
+    display: none !important;
+  }
+      
+
+
+  
 }
 
 </style>

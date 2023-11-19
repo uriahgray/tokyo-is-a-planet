@@ -6,9 +6,9 @@
       <div v-if="studio.articles" class="grid gap-x-8 gap-y-4 grid-cols-2 md:grid-cols-5">
         <div v-for="article in studio.articles" :key="article.title" class="article text-base md:text-lg">
           <router-link :to="`/report/${article.slug}`" class="article-slug">
-            <div class="flex flex-col">
-              <div class="w-full object-contain">
-                <img class="h-full" v-if="article.thumbnail" :src="article.thumbnail.url" alt="" />
+            <div class="">
+              <div class="w-full">
+                <img class="w-full mb-4" v-if="article.thumbnail" :src="article.thumbnail.url" alt="" />
               </div>
               <div>
                 <span>{{ article.title }}</span> <br>
