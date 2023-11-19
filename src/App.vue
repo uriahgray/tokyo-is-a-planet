@@ -1,6 +1,6 @@
 <template>
 <header>
-    <div v-if="studio" class="wrapper w-[85%] md:w-1/3 bg-violet-600 mix-blend-multiply fixed top-16 text-white p-3 -translate-x-1/2 left-1/2 z-50 rounded-xl">
+    <div v-if="studio" class="wrapper w-[85%] md:w-1/3 bg-riso-blue mix-blend-multiply fixed top-16 text-white p-3 -translate-x-1/2 left-1/2 z-50">
     <div class="logo flex justify-between items-center">
       <div class="text-base md:text-lg">
         <router-link :to="`/`">
@@ -35,13 +35,13 @@
       </div>
     </div>
     <div class="live-player  md:flex mt-1">
-      <div class="live flex-grow-2 w-28 pr-2 text-lime-300">
+      <div class="live flex-grow-2 w-28 pr-2 text-[#00ff00]">
           <button @click="playAudio(studio.singleBroadcast.url, true)">
-            ●  Live now
+            ●  Listen
           </button>        
       </div>
       <div class="audio-player flex-grow-1">
-        <AudioPlayer :file="audioUrl" :title="audioTitle" :autoPlay="autoPlayState" :hideTimeline="hideTimelineState" />
+        <AudioPlayer :file="audioUrl" :title="audioTitle" :autoPlay="autoPlayState" />
       </div>  
     </div>
     <div class="menu-wrapper overflow-auto max-h-[70vh]" v-if="isMenuOpen">
@@ -64,20 +64,20 @@
 
         </router-link>
       </div>
-      <router-link :to="`/articles/`" class="articles-slug">
-      <div class="text-base md:text-lg">Articles</div>
+      <router-link :to="`/reports/`" class="articles-slug">
+      <div class="text-base md:text-lg">● Reports</div>
       </router-link>
-      <div class="text-base md:text-lg">About</div>
-      <div class="text-xs md:text-sm"><div v-html="studio.credits.html"></div></div>
+      <!-- <div class="text-base md:text-lg">About</div> -->
+      <div class="text-xs md:text-sm mt-4"><div v-html="studio.credits.html"></div></div>
     </div>
     </div>
 
   <div v-if="studio" :class="hideThumbnails">
-    <div v-for="(article, index) in articlesWithPosition" :key="article.slug" class="article-thumbnail fixed" :class="{'show': article.show}" :style="article.position">
+    <div v-for="(article, index) in articlesWithPosition" :key="article.slug" class="article-thumbnail fixed hover:z-[250]" :class="{'show': article.show}" :style="article.position">
       
         <div class="w-[100px] md:w-[200px]">
           <div class="close cursor-pointer mb-2" @click="removeArticle(index)">
-            <svg width="27" height="27" viewBox="0 0 27 27" class="fill-purple-700" xmlns="http://www.w3.org/2000/svg">
+            <svg width="27" height="27" viewBox="0 0 27 27" class="fill-riso-gold" xmlns="http://www.w3.org/2000/svg">
               <circle cx="13.5" cy="13.5" r="13.5"/>
               <path d="M19 9.10786L17.8921 8L13.5 12.3921L9.10786 8L8 9.10786L12.3921 13.5L8 17.8921L9.10786 19L13.5 14.6079L17.8921 19L19 17.8921L14.6079 13.5L19 9.10786Z" fill="#fff"/>
             </svg>
@@ -138,7 +138,7 @@ export default defineComponent({
           setTimeout(() => {
             // Directly set the show property
             article.show = true;
-          }, 3000 * (index + 1));
+          }, 4000 * (index + 1));
         });
       }
     },
@@ -149,7 +149,8 @@ export default defineComponent({
   mounted() {
     if (this.studio && this.studio.singleBroadcast) {
       const url = this.studio.singleBroadcast.url;
-      this.$store.dispatch('loadAudio', { url, autoplay: false });
+      const title = this.studio.singleBroadcast.url;
+      this.$store.dispatch('loadAudio', { url, title, autoplay: false });
     }
   },
   computed: {
@@ -244,8 +245,8 @@ export default defineComponent({
     },    
     getRandomPosition() {
       // Generate random positions
-      const top = Math.random() * (window.innerHeight - 100); // 100 is the height of the thumbnail
-      const left = Math.random() * (window.innerWidth - 100); // 100 is the width of the thumbnail
+      const top = Math.random() * (window.innerHeight - 200); // 100 is the height of the thumbnail
+      const left = Math.random() * (window.innerWidth - 200); // 100 is the width of the thumbnail
       return `top: ${top}px; left: ${left}px;`;
     }
   }

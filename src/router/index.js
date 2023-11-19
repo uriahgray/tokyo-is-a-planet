@@ -31,13 +31,13 @@ const router = createRouter({
       component: BroadcastView
     },
     {
-      path: '/articles',
+      path: '/reports',
       name: 'articles',
       component: ArticlesView
     }
     ,
     {
-      path: '/article/:slug',
+      path: '/report/:slug',
       name: 'article',
       component: ArticleView
     }        

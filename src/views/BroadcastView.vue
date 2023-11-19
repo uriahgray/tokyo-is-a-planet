@@ -1,5 +1,5 @@
 <template>
-  <div class="broadcast-view p-4 text-riso-blue">
+  <div class="broadcast-view p-4 text-riso-blue mb-8 md:mb-16">
     <div v-if="broadcast">
 
       
@@ -9,7 +9,7 @@
         <div class="absolute inset-0 mx-auto my-auto z-10  w-[100px] h-[100px] rounded-xl">
           <button @click="playAudio(broadcast.audio.url, broadcast.title, false)">
             <div class="bg-white w-[100px] h-[100px] rounded-lg">
-              <svg :class="{ 'fill-violet-600 translate-x-[26px] translate-y-[15px]': true, blink: !isClicked }">
+              <svg :class="{ 'fill-riso-blue translate-x-[26px] translate-y-[15px]': true, blink: !isClicked }">
               <path d="M55 32.5L0.249997 64.1099L0.25 0.890069L55 32.5Z"/>
               </svg>
             </div>

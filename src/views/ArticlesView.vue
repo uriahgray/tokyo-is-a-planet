@@ -1,17 +1,21 @@
 <template>
-  <div class="home p-4 text-riso-blue">
+  <div class="home p-4 text-riso-blue mb-8 md:mb-16 ">
     <div class="text-xs md:text-sm w-full md:w-1/2 mb-8 mt-64 md:mt-0 md:mb-16">{{ studio.summary }}</div>
     <div v-if="studio">
       <!-- Display Articles -->
       <div v-if="studio.articles" class="grid gap-x-8 gap-y-4 grid-cols-2 md:grid-cols-5">
         <div v-for="article in studio.articles" :key="article.title" class="article text-base md:text-lg">
-          <router-link :to="`/article/${article.slug}`" class="article-slug">
-            <div>
-              <img class="" v-if="article.thumbnail" :src="article.thumbnail.url" alt="" />
-              <span>{{ article.title }}</span> <br>
-              <span v-for="(person, index) in article.people" :key="person.id">
-                <template v-if="index !== 0">, </template>{{ person.firstName }} {{ person.lastName }}
-              </span>               
+          <router-link :to="`/report/${article.slug}`" class="article-slug">
+            <div class="flex flex-col">
+              <div class="w-full object-contain">
+                <img class="h-full" v-if="article.thumbnail" :src="article.thumbnail.url" alt="" />
+              </div>
+              <div>
+                <span>{{ article.title }}</span> <br>
+                <span v-for="(person, index) in article.people" :key="person.id">
+                  <template v-if="index !== 0">, </template>{{ person.firstName }} {{ person.lastName }}
+                </span>                
+              </div>             
             </div>            
           </router-link>
         </div>  

@@ -2,28 +2,30 @@
   <div id="app">
     <div class="player">
       <div class="state" :class="[{ published: isPublished }]"></div>
-      <div class="audio-player bg-violet-600">
+      <div class="audio-player bg-riso-blue">
         <div :class="hideTimeline ? 'inactive' : 'active'" class="timeline">
           <div class="progress" :style="{ width: progress + '%' }"></div>
         </div>
         <div class="controls">
-          <div class="play-container bg-violet-600">
-          <span class="bi text-lg" @click="playPause">
+          <div class="play-container bg-riso-blue">
+          <span class="bi text-lg bg-riso-blue" @click="playPause">
             <span v-if="isPaused" class="play">
               <svg width="30" height="36" viewBox="0 0 30 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M30 18L-1.63133e-06 35.3205L-1.17124e-07 0.67949L30 18Z" fill="#D9D9D9"/>
+                <path d="M30 18L-1.63133e-06 35.3205L-1.17124e-07 0.67949L30 18Z" fill="#FFFFFF"/>
               </svg>
             </span>
             <span v-else class="pause">
               <svg width="25" height="35" viewBox="0 0 25 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect width="10" height="35" fill="#D9D9D9"/>
-                <rect x="15" width="10" height="35" fill="#D9D9D9"/>
+                <rect width="10" height="35" fill="#FFFFFF"/>
+                <rect x="15" width="10" height="35" fill="#FFFFFF"/>
               </svg>
             </span>
           </span>
           </div>
-          <div :class="hideTimeline ? 'text-transparent' : 'text-white'" class="time">
-            <div class="title">{{title}} </div>
+          <div :class="hideTimeline ? 'text-transparent' : 'text-white'" class="time w-[85%] md:w-[90%]">
+            <div class="title marquee">
+              <span>{{title}} {{title}} {{title}} {{title}} {{title}} {{title}}</span>
+            </div>
             <div class="current">{{ current }} / {{ length }}</div>
           </div>
         </div>
@@ -144,16 +146,51 @@ export default {
 </script>
 
 <style>
+
+.marquee {
+    width: 75%;
+    overflow: hidden;
+    position: relative;
+}
+
+.marquee span {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    line-height: 25px; /* Adjust to your preference */
+    text-align: center;
+    /* Animate */
+    -webkit-animation: marquee 20s linear infinite;
+    animation: marquee 20s linear infinite;
+    will-change: transform;
+}
+
+/* Keyframes for the animation */
+@-webkit-keyframes marquee {
+    0%   { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}
+
+@keyframes marquee {
+    0%   { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}
+.current {
+  width: 100px;
+    text-align: right;
+}
+
 .player {
   display: flex;
 }
 .player .state {
   height: auto;
   width: 0.5rem;
-  background-color: #ff0000;
+  background-color: #00ff00;
 }
 .player .state.published {
-  background-color: #00ff00;
+  background-color: lime;
 }
 .audio-player {
   height: 50px;
@@ -202,6 +239,7 @@ export default {
 }
 .audio-player .controls .time {
   display: flex;
+  justify-content: flex-end;
 }
 .audio-player .controls .time > * {
   padding: 2px;

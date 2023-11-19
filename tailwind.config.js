@@ -13,8 +13,8 @@ module.exports = {
     }),
     extend: {
       colors: {
-        'riso-blue':'#0b3e78',
-        'riso-gold':'#704817',
+        'riso-blue':'#005cc2',
+        'riso-gold':'#a78838',
       }
     },
     animation: {

@@ -23,7 +23,7 @@
       <!-- Display Articles -->
       <div v-if="studio.articles">
         <div class="my-8 md:my-16 ff-cond text-xl md:text-2xl text-center whitespace-pre-line w-full">
-        Articles
+        Reports
         </div>  
         <div v-for="article in studio.articles" :key="article.title" class="article text-base md:text-lg">
           <router-link :to="`/article/${article.slug}`" class="article-slug">
@@ -38,6 +38,7 @@
       </div>
       <!-- Credits -->
       <div v-if="studio.credits" class="my-8 md:my-16 text-xs md:text-sm">
+        <div>Tokyo is a Planet, {{ new Date().getFullYear() }}</div>
         <div v-html="studio.credits.html"></div>
       </div>   
     </div>

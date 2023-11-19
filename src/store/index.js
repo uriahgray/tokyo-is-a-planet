@@ -5,7 +5,7 @@ export default createStore({
   state: {
     audioUrl: null,
     hideTimeline: true,
-    audioTitle: null
+    audioTitle: "Tokyo is a Planet broadcast standby"
   },
   mutations: {
     setAudioUrl(state, url) {
