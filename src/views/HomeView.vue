@@ -1,5 +1,5 @@
 <template>
-  <div class="home p-4 text-riso-blue">
+  <div class="home p-4 text-riso-blue hidden">
     <div v-if="studio">
       <div class="text-xs md:text-sm w-full md:w-1/2 mt-64 md:mt-0 mb-8 md:mb-16">{{ studio.summary }}</div>
       <!-- Display Content -->
@@ -11,13 +11,16 @@
         </div>   
         <div v-for="broadcast in studio.broadcasts" :key="broadcast.title"
              class="text-center w-full md:w-1/2 px-0 md:px-4 mb-4">
-          <router-link :to="`/broadcast/${broadcast.slug}`">
-          <img class="w-full rounded-2xl mb-2" v-if="broadcast.thumbnail" :src="broadcast.thumbnail.url" alt="" />
-          <div class="text-ml md:text-lg">{{ broadcast.title }} {{ broadcast.length }}</div>
-          <div v-for="(person, index) in broadcast.people" :key="person.id" class="text-xs md:text-sm">
-            {{ person.firstName }} {{ person.lastName }}<span v-if="index < broadcast.people.length - 1">,</span>
-          </div>          
-          </router-link>
+            <router-link :to="`/broadcast/${broadcast.slug}`">
+              <img class="w-full rounded-2xl mb-2" v-if="broadcast.thumbnail" :src="broadcast.thumbnail.url" alt="" />
+              <div class="text-ml md:text-lg">{{ broadcast.title }} {{ broadcast.length }}</div>
+              <div class="text-xs md:text-sm flex justify-center">
+                <div v-for="(person, index) in broadcast.people" :key="person.id">
+                  {{ person.firstName }} {{ person.lastName }}<span v-if="index < broadcast.people.length - 1">,&nbsp;</span>
+                </div>
+              </div>          
+            </router-link>
+
         </div>
       </div>
       <!-- Display Articles -->

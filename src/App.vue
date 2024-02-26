@@ -1,6 +1,14 @@
 <template>
 <header>
-    <div v-if="studio" class="wrapper w-[85%] md:w-1/3 bg-riso-blue mix-blend-multiply fixed top-16 text-white p-3 -translate-x-1/2 left-1/2 z-50">
+    <div class="holding w-screen h-screen z-[500] fixed top-0 left-0 bg-[length:150%] md:bg-[length:auto]
+              flex
+              bg-slate-100 justify-center items-center self-center text-[32px] text-center md:text-[6vw] text-riso-blue">
+      <div class="mix-blend-multiply">Website Landing Soon</div>
+    </div>
+    <div v-if="studio" class="
+    <!-- add hidden to hide -->
+    hidden
+    wrapper w-[85%] md:w-1/3 bg-riso-blue mix-blend-multiply fixed top-16 text-white p-3 -translate-x-1/2 left-1/2 z-50">
     <div class="logo flex justify-between items-center">
       <div class="text-base md:text-lg">
         <router-link :to="`/`">
@@ -58,7 +66,7 @@
             <div class="text-base md:text-lg ">{{ broadcast.title }}</div>
             <div class="text-xs md:text-sm inline-block">{{ broadcast.length }} &nbsp;</div>
             <div v-for="(person, index) in broadcast.people" :key="person.id" class="person inline-block">
-              {{ person.firstName }} {{ person.lastName }}<span v-if="index < broadcast.people.length - 1">,</span>
+              {{ person.firstName }} {{ person.lastName }}<span v-if="index < broadcast.people.length - 1">, &nbsp;</span>
             </div>
           </div>
 
@@ -305,6 +313,12 @@ export default defineComponent({
 
 
   
+}
+
+.holding {
+  background-image: url('./circle.png');
+  background-position: center center;
+  background-repeat: no-repeat;
 }
 
 </style>
