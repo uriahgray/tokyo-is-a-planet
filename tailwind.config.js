@@ -348,7 +348,8 @@ module.exports = {
       lg: ['2.3841vw', { lineHeight: '2.516vw' }],
 
       // header=2xl desktop, xl mobile
-      xl: ['24.41vw', { lineHeight: '19.24vw' }],
+      
+      xl: ['23.9vw', { lineHeight: '19.24vw' }],
       '2xl': ['24.41vw', { lineHeight: '19.24vw' }],
 
       // mobile large

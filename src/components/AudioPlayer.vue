@@ -22,11 +22,11 @@
             </span>
           </span>
           </div>
-          <div :class="hideTimeline ? 'text-transparent' : 'text-white'" class="time w-[85%] md:w-[90%]">
-            <div class="title marquee">
+          <div :class="hideTimeline ? 'text-transparent' : 'text-white'" class="time flex w-full">
+            <div class="title marquee w-[50%] md:w-[65%] h-[30px]">
               <span>{{title}} {{title}} {{title}} {{title}} {{title}} {{title}}</span>
             </div>
-            <div class="current">{{ current }} / {{ length }}</div>
+            <div class="current w-[100px] h-[30px] truncate">{{ current }} / {{ length }}</div>
           </div>
         </div>
       </div>
@@ -148,7 +148,7 @@ export default {
 <style>
 
 .marquee {
-    width: 75%;
+    
     overflow: hidden;
     position: relative;
 }
@@ -177,7 +177,7 @@ export default {
     100% { transform: translateX(-100%); }
 }
 .current {
-  width: 100px;
+  
     text-align: right;
 }
 

@@ -10,6 +10,9 @@
     <div v-else>
       <p>Loading article data or not available...</p>
     </div>
+    <div class="ff-cond text-xl md:text-2xl text-center text-riso-blue whitespace-pre-line mt-16">
+      <router-link :to="'/reports'">Reports</router-link>
+    </div>
   </div>
 </template>
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="home p-4 text-riso-blue hidden">
+  <div class="home p-4 text-riso-blue">
     <div v-if="studio">
       <div class="text-xs md:text-sm w-full md:w-1/2 mt-64 md:mt-0 mb-8 md:mb-16">{{ studio.summary }}</div>
       <!-- Display Content -->
@@ -14,8 +14,8 @@
             <router-link :to="`/broadcast/${broadcast.slug}`">
               <img class="w-full rounded-2xl mb-2" v-if="broadcast.thumbnail" :src="broadcast.thumbnail.url" alt="" />
               <div class="text-ml md:text-lg">{{ broadcast.title }} {{ broadcast.length }}</div>
-              <div class="text-xs md:text-sm flex justify-center">
-                <div v-for="(person, index) in broadcast.people" :key="person.id">
+              <div class="text-xs md:text-sm">
+                <div v-for="(person, index) in broadcast.people" :key="person.id" class="inline">
                   {{ person.firstName }} {{ person.lastName }}<span v-if="index < broadcast.people.length - 1">,&nbsp;</span>
                 </div>
               </div>          
@@ -29,8 +29,8 @@
         Reports
         </div>  
         <div v-for="article in studio.articles" :key="article.title" class="article text-base md:text-lg">
-          <router-link :to="`/article/${article.slug}`" class="article-slug">
-            <div>
+          <router-link :to="`/report/${article.slug}`" class="article-slug hover:underline hover:underline-offset-1">
+            <div class="inline">
               <span>{{ article.title }},&nbsp;</span>
               <span v-for="(person, index) in article.people" :key="person.id">
                 <template v-if="index !== 0">, </template>{{ person.firstName }} {{ person.lastName }}
@@ -92,7 +92,7 @@ export default defineComponent({
                   url(transformation: {image: {resize: {width: 1000}}})
                 }                 
               }
-              articles {
+              articles(first: 100) {
                 title
                 summary
                 slug

@@ -23,8 +23,8 @@
       </div>
 
       <div class="text-ml md:text-lg mt-2">{{ broadcast.title }} <span class="hidden md:inline">{{ broadcast.length }}</span></div>
-      <div class="text-xs md:text-sm flex justify-start">
-        <div v-for="(person, index) in broadcast.people" :key="person.id">
+      <div class="text-xs md:text-sm">
+        <div v-for="(person, index) in broadcast.people" :key="person.id" class="inline">
           {{ person.firstName }} {{ person.lastName }}<span v-if="index < broadcast.people.length - 1">,&nbsp;</span>
         </div>
       </div>  
